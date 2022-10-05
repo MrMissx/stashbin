@@ -1,0 +1,39 @@
+@use "variables" as v;
+
+.main {
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: v.$second-background;
+    overflow: hidden;
+
+}
+
+.result {
+    resize: none;
+    width: calc(100vw - 3rem);
+    background-color: v.$second-background;
+    color: v.$text-editor;
+    padding: 1rem 1.5rem;
+    outline: none;
+    height: calc(100vh - 8.5rem);
+    font-size: 14px;
+}
+
+.editor {
+    resize: none;
+    width: calc(100vw - 3rem);
+    background-color: v.$second-background;
+    color: v.$text-editor;
+    padding: 1rem 1.5rem;
+    outline: none;
+    height: calc(100vh - 8.5rem);
+    font-size: 14px;
+}

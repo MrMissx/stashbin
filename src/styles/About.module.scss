@@ -1,0 +1,44 @@
+@use "variables" as v;
+
+.main {
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    background-color: v.$second-background;
+    overflow: hidden;
+    padding: 1rem 2rem;
+
+    a {
+        color: #E3B23C;
+    }
+
+    h1 {
+        font-size: 2rem;
+        font-weight: 550;
+        color: v.$text;
+    }
+
+    p {
+        font-size: 1.1rem;
+        font-weight: 350;
+        color: v.$text;
+        margin-top: 1rem;
+    }
+
+    pre {
+        background: rgb(30, 30, 49);
+        padding: 0.5rem;
+        border-radius: 5px;
+        font-size: 0.8rem;
+
+        @media screen and (max-width: 600px) {
+            font-size: 0.7rem;
+        }
+    }
+}
