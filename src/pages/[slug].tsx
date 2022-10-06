@@ -5,14 +5,15 @@ import Footer from "../components/Footer"
 import styles from "../styles/Main.module.scss"
 import supabase from "../libs/supabase"
 
-export interface ContentProps {
+interface ContentProps {
     content: string
+    slug: string
 }
 
-export default function Content({ content }: ContentProps) {
+export default function Content({ content, slug }: ContentProps) {
     return (
         <main className={styles.main}>
-            <Header />
+            <Header slug={slug} />
             <div className={styles.content}>
                 <textarea className={styles.result} readOnly value={content} />
             </div>
@@ -38,6 +39,6 @@ export async function getServerSideProps({ params }: GetServerSidePropsContext) 
     }
 
     return {
-        props: { content: data[0].content },
+        props: { content: data[0].content, slug: params.slug },
     }
 }
