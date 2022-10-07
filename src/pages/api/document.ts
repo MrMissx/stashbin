@@ -63,15 +63,21 @@ export default async function handler(
         return
     }
     if (req.method === "POST") {
-        if (req.headers["content-type"] !== "application/json") {
-            res.status(400).json({ ok: false, err: "Only accepting 'application/json'" })
-            return
+        let payload = req.body
+        if (typeof payload === "string") {
+            try {
+                payload = JSON.parse(payload)
+            } catch (e) {
+                res.status(400).json({ ok: false, err: "Invalid JSON. content field not found!" })
+                return
+            }
         }
-        const { content } = req.body
+        const { content } = payload
         if (!content) {
             res.status(400).json({ ok: false, err: "Missing body content" })
             return
         }
+
         const data = await insertContent(content)
         if (!data || data.length === 0) {
             res.status(500).json({ ok: false, err: "Failed to insert data" })
