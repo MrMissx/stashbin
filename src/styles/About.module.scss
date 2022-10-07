@@ -8,10 +8,10 @@
 .content {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: calc(100vh - 8.5rem);
     position: relative;
     background-color: v.$second-background;
-    overflow: hidden;
+    overflow-y: scroll;
     padding: 1rem 2rem;
 
     a {
@@ -26,7 +26,7 @@
     }
 
     h2 {
-        font-size: 1.8rem;
+        font-size: 1.7rem;
         font-weight: 500;
         color: v.$text;
         margin: 0.7rem 0;
@@ -44,9 +44,21 @@
         padding: 0.5rem;
         border-radius: 5px;
         font-size: 0.8rem;
+        font-family: inherit;
+        overflow: auto;
 
-        @media screen and (max-width: 600px) {
-            font-size: 0.7rem;
+    }
+    @media screen and (max-width: 600px) {
+        p {
+            font-size: 1rem;
+        }
+
+        h1 {
+            font-size: 1.7rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
         }
     }
 }

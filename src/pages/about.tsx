@@ -24,17 +24,17 @@ export default function Home() {
                     You can use the API to create, read, update, and delete documents. You can send
                     a http POST with a JSON body containing field named &apos;content&apos;. Other
                     than that, it will response a Bad Request. Here an example using curl.
-                </p>
-                <pre>
-                    <code>
-                        {`curl -X POST \\
+                    <pre>
+                        <code>
+                            {`curl -X POST \\
   'https://stashbin.xyz/api/document' \\
   --header 'Content-Type: application/json' \\
   --data-raw '{
   "content": "Hi Mom"
 }'`}
-                    </code>
-                </pre>
+                        </code>
+                    </pre>
+                </p>
                 <p>
                     And you can GET your document with the key received from POST on{" "}
                     <pre>
