@@ -13,6 +13,9 @@ export default function Home() {
                     <br />
                     Stashbin is an open source pastebin service. You can find the source code on{" "}
                     <a href="https://github.com/mrmissx/stashbin">Github.</a>
+                    <br />
+                    By default stashbin supports font ligatures like &lt;=, &gt;=, ==, !=, =&gt;
+                    etc. Make your code more readable and beautiful with ligatures.
                 </p>
                 <h2>Document Lifetime</h2>
                 <p>
@@ -21,9 +24,9 @@ export default function Home() {
                 </p>
                 <h2>API endpoint</h2>
                 <p>
-                    You can use the API to create, read, update, and delete documents. You can send
-                    a http POST with a JSON body containing field named &apos;content&apos;. Other
-                    than that, it will response a Bad Request. Here an example using curl.
+                    You can use the API to create and read documents. You can send a http POST with
+                    a JSON body containing field named &apos;content&apos;. Other than that, it will
+                    response a Bad Request. Here an example using curl.
                     <pre>
                         <code>
                             {`curl -X POST \\
