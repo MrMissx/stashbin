@@ -10,10 +10,24 @@
         margin: 0.5rem 0;
         font-size: x-large;
 
+        &.tool {
+            font-size: inherit;
+            margin: 0;
+
+            svg {
+                margin: 0;
+            }
+        }
+
         &:hover {
             text-decoration: none;
             color: inherit;
         }
+    }
+
+    .toolbar {
+        display: flex;
+        align-items: center;
     }
 
     svg {
@@ -50,9 +64,12 @@
     }
 
     @media screen and (max-width: 600px) {
-        p,
         a {
             font-size: 1rem;
+        }
+
+        p {
+            display: none !important;
         }
     }
 }
