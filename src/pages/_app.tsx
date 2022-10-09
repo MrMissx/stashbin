@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <meta property="og:type" content="website" />
                 <meta
                     property="og:image"
-                    content="https://stashbin.xyz/android-chrome-192x192.png"
+                    content="https://stashbin.xyz/images/android-chrome-192x192.png"
                 />
                 <meta property="twitter:card" content="summary" />
                 <meta key="twitter:title" property="twitter:title" content="StashBin" />
@@ -30,7 +30,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <meta property="twitter:creator" content="@mrmissx" />
                 <meta
                     property="twitter:image"
-                    content="https://stashbin.xyz/android-chrome-192x192.png"
+                    content="https://stashbin.xyz/images/android-chrome-192x192.png"
                 />
                 <meta
                     key="twitter:description"
@@ -38,10 +38,10 @@ function MyApp({ Component, pageProps }: AppProps) {
                     content="A simple, free open-source pastebin for your text file. Paste, save and share your text with the world."
                 />
                 <meta name="theme-color" content="#b78f30" />
-                <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-                <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-                <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-                <link rel="manifest" href="/site.webmanifest" />
+                <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+                <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
+                <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png" />
+                <link rel="manifest" href="/manifest.json" />
             </Head>
             <Component {...pageProps} />
         </>
