@@ -39,10 +39,14 @@ export default function Home() {
                     </pre>
                 </p>
                 <p>
-                    And you can GET your document with the key received from POST on{" "}
+                    And you can GET your document in JSON format with the key received from POST on{" "}
                     <pre>
                         <code>{`curl -X GET \\
   'https://stashbin.xyz/api/document?key=examplekey'`}</code>
+                    </pre>
+                    If you only want the content as a plain text, you can use the raw endpoint.
+                    <pre>
+                        <code>{`curl -X GET 'https://stashbin.xyz/raw/examplekey'`}</code>
                     </pre>
                 </p>
             </div>
