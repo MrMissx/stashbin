@@ -11,10 +11,11 @@ function MyApp({ Component, pageProps }: AppProps) {
                     name="description"
                     content="A simple, free open-source pastebin for your text file. Paste, save and share your text with the world."
                 />
-                <meta property="og:title" content="StashBin" />
-                <meta property="og:site_name" content="stashbin" />
-                <meta property="og:url" content="https://stashbin.xyz" />
+                <meta key="og:title" property="og:title" content="StashBin" />
+                <meta key="og:site_name" property="og:site_name" content="StashBin" />
+                <meta key="og:url" property="og:url" content="https://stashbin.xyz" />
                 <meta
+                    key="og:description"
                     property="og:description"
                     content="A simple, free open-source pastebin for your text file. Paste, save and share your text with the world."
                 />
@@ -24,17 +25,19 @@ function MyApp({ Component, pageProps }: AppProps) {
                     content="https://stashbin.xyz/android-chrome-192x192.png"
                 />
                 <meta property="twitter:card" content="summary" />
-                <meta property="twitter:title" content="StashBin" />
+                <meta key="twitter:title" property="twitter:title" content="StashBin" />
                 <meta property="twitter:site" content="@mrmissx" />
+                <meta property="twitter:creator" content="@mrmissx" />
                 <meta
                     property="twitter:image"
                     content="https://stashbin.xyz/android-chrome-192x192.png"
                 />
-                <meta property="twitter:creator" content="@mrmissx" />
                 <meta
+                    key="twitter:description"
                     property="twitter:description"
                     content="A simple, free open-source pastebin for your text file. Paste, save and share your text with the world."
                 />
+                <meta name="theme-color" content="#b78f30" />
                 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
                 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
                 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />

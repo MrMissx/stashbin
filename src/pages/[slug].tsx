@@ -1,4 +1,5 @@
 import { GetServerSidePropsContext } from "next"
+import Head from "next/head"
 
 import Header from "../components/Header"
 import Footer from "../components/Footer"
@@ -10,9 +11,43 @@ interface ContentProps {
     slug: string
 }
 
+const MAX_DESCRIPTION_LENGTH = 350
+
 export default function Content({ content, slug }: ContentProps) {
     return (
         <main className={styles.main}>
+            <Head>
+                <meta key="og:site_name" property="og:site_name" content={`StashBin | ${slug}`} />
+                <meta
+                    key="og:title"
+                    property="og:title"
+                    content="StashBin.xyz | Save and share your text file easily with everyone."
+                />
+                <meta
+                    key="og:description"
+                    property="og:description"
+                    content={
+                        content.length > MAX_DESCRIPTION_LENGTH
+                            ? content.slice(0, MAX_DESCRIPTION_LENGTH) + "..."
+                            : content
+                    }
+                />
+                <meta key="og:url" property="og:url" content={"https://stashbin.xyz/" + slug} />
+                <meta
+                    key="twitter:title"
+                    property="twitter:title"
+                    content="StashBin.xyz | Save and share your text file easily with everyone."
+                />
+                <meta
+                    key="twitter:description"
+                    property="twitter:description"
+                    content={
+                        content.length > MAX_DESCRIPTION_LENGTH
+                            ? content.slice(0, MAX_DESCRIPTION_LENGTH) + "..."
+                            : content
+                    }
+                />
+            </Head>
             <Header slug={slug} />
             <div className={styles.content}>
                 <textarea className={styles.result} readOnly value={content} />
