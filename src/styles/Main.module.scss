@@ -1,5 +1,7 @@
 @use "variables" as v;
 
+$height: calc(100vh - 9rem);
+
 .main {
     display: flex;
     flex-direction: column;
@@ -13,7 +15,6 @@
     position: relative;
     background-color: v.$second-background;
     overflow: hidden;
-
 }
 
 .result {
@@ -23,7 +24,7 @@
     color: v.$text-editor;
     padding: 1rem 1.5rem;
     outline: none;
-    height: calc(100vh - 8.5rem);
+    height: $height;
     font-size: 14px;
 }
 
@@ -34,6 +35,6 @@
     color: v.$text-editor;
     padding: 1rem 1.5rem;
     outline: none;
-    height: calc(100vh - 8.5rem);
+    height: $height;
     font-size: 14px;
 }
