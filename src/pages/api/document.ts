@@ -22,7 +22,7 @@ type PostResponse = BaseResponse & {
 
 async function insertContent(content: string, retry: number = 0): Promise<any> {
     const slug = createSlug()
-    const { data, error } = await supabase.from("documents").insert([{ content, slug }])
+    const { data, error } = await supabase.from("documents").insert([{ content, slug }]).select()
 
     if (error) {
         if (error.code === "23505" && retry <= 5) {
