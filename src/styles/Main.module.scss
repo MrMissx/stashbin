@@ -2,29 +2,35 @@
 
 $height: calc(100vh - 9rem);
 
-.main {
-    display: flex;
-    flex-direction: column;
+.content {
+    max-height: 88vh;
+    background-color: v.$second-background;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    @media screen and (max-width: 768px) {
+        overflow-x: scroll;
 }
 
-.content {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    background-color: v.$second-background;
-    overflow: hidden;
+    li {
+        list-style-type: decimal;
+        list-style-position: outside;
+        white-space: pre-wrap;
+    }
+
+    li::marker {
+        background-color: v.$background;
+        color: #a2acaf;
+        padding-left: 1rem;
+    }
 }
 
 .result {
     resize: none;
-    width: calc(100vw - 3rem);
     background-color: v.$second-background;
     color: v.$text-editor;
-    padding: 1rem 1.5rem;
+    padding-left: 1rem;
     outline: none;
-    height: $height;
     font-size: 14px;
 }
 

@@ -1,21 +1,35 @@
 import { GetServerSidePropsContext } from "next"
 import Head from "next/head"
+import { useRouter } from "next/router"
 
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import styles from "../styles/Main.module.scss"
 import supabase from "../libs/supabase"
+import { useEffect } from "react"
 
 interface ContentProps {
-    content: string
-    slug: string
+    content?: string
+    slug?: string
 }
 
 const MAX_DESCRIPTION_LENGTH = 350
 
 export default function Content({ content, slug }: ContentProps) {
+    const router = useRouter()
+
+    useEffect(() => {
+        if (!content || !slug) {
+            router.push("/")
+        }
+    }, [content, slug, router])
+
+    if (!content || !slug) {
+        return null
+    }
+
     return (
-        <main className={styles.main}>
+        <>
             <Head>
                 <meta key="og:site_name" property="og:site_name" content={`StashBin | ${slug}`} />
                 <meta
@@ -49,28 +63,39 @@ export default function Content({ content, slug }: ContentProps) {
                 />
             </Head>
             <Header slug={slug} />
-            <div className={styles.content}>
-                <textarea className={styles.result} readOnly value={content} />
-            </div>
+            <main>
+                <div className={styles.content}>
+                    <ol>
+                        {content.split("\n").map((line, index) => {
+                            return (
+                                <li key={index} className={styles.result}>
+                                    {line}
+                                    <br />
+                                </li>
+                            )
+                        })}
+                    </ol>
+                </div>
+            </main>
             <Footer />
-        </main>
+        </>
     )
 }
 
 export async function getServerSideProps({ params }: GetServerSidePropsContext) {
-    const redirectResponse = {
-        redirect: {
-            destination: "/",
-            permanent: false,
-        },
-    }
+    // const redirectResponse = {
+    //     redirect: {
+    //         destination: "/",
+    //         permanent: 200,
+    //     },
+    // }
 
     if (!params) {
-        return redirectResponse
+        return { props: {} }
     }
     const { data, error } = await supabase.from("documents").select("*").eq("slug", params.slug)
     if (error || !data || data.length === 0) {
-        return redirectResponse
+        return { props: {} }
     }
 
     return {
