@@ -35,7 +35,7 @@ const Home: NextPage = () => {
     return (
         <main className={styles.main}>
             <Header save={saveContent} saveDisable={saveDisable} />
-            <div className={styles.content}>
+            <div className={styles.editorWrapper}>
                 <textarea
                     className={styles.editor}
                     ref={contentRef}
