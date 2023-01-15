@@ -82,8 +82,7 @@ export default function Content({ content, slug }: ContentProps) {
                         {content.split("\n").map((line, index) => {
                             return (
                                 <li key={index} className={styles.result}>
-                                    {line}
-                                    <br />
+                                    <pre>{line}</pre>
                                 </li>
                             )
                         })}
