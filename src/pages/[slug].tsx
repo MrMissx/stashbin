@@ -22,6 +22,19 @@ export default function Content({ content, slug }: ContentProps) {
         if (!content || !slug) {
             router.push("/")
         }
+
+        document.addEventListener("keydown", (event) => {
+            if (event.ctrlKey && event.key === "a") {
+                event.preventDefault()
+                const range = document.createRange()
+                const contentElement = document.getElementById("content")
+                if (contentElement) {
+                    range.selectNode(contentElement)
+                    window.getSelection()?.removeAllRanges()
+                    window.getSelection()?.addRange(range)
+                }
+            }
+        })
     }, [content, slug, router])
 
     if (!content || !slug) {
@@ -64,7 +77,7 @@ export default function Content({ content, slug }: ContentProps) {
             </Head>
             <Header slug={slug} />
             <main>
-                <div className={styles.content}>
+                <div id="content" className={styles.content}>
                     <ol>
                         {content.split("\n").map((line, index) => {
                             return (
