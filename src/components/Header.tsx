@@ -25,7 +25,8 @@ export default function Header({ save, saveDisable, slug }: HeaderProps) {
             <Link href="/">
                 &lt;
                 <span style={{ color: "#DDA3B2" }}>Stash</span>
-                <span style={{ color: "#E3B23C" }}>Bin</span> /&gt;
+                <span style={{ color: "#E3B23C" }}>Bin</span>
+                /&gt;
             </Link>
             {save && (
                 <svg
