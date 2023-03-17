@@ -3,10 +3,9 @@
 $height: calc(100vh - 9rem);
 
 .content {
-    max-height: 88vh;
+    height: 88vh;
     background-color: v.$second-background;
-    overflow-x: hidden;
-    overflow-y: scroll;
+    overflow: auto;
 
     @media screen and (max-width: 768px) {
         overflow-x: scroll;
@@ -22,6 +21,11 @@ $height: calc(100vh - 9rem);
         background-color: v.$background;
         color: #a2acaf;
         padding-left: 1rem;
+    }
+
+    pre {
+        margin: 0;
+        z-index: 1;
     }
 }
 
