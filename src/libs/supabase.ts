@@ -1,10 +1,8 @@
 import { createClient } from "@supabase/supabase-js"
+import { Environment } from "../shared/Environment"
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || null
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || null
-
-if (!supabaseUrl || !supabaseKey) {
-    throw new Error("Missing Supabase URL or Key")
+if (!Environment.supabase.url || !Environment.supabase.apiKey) {
+  throw new Error("Missing Supabase URL or API key")
 }
 
-export default createClient(supabaseUrl, supabaseKey)
+export default createClient(Environment.supabase.url, Environment.supabase.apiKey)
