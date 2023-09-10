@@ -1,7 +1,7 @@
 {
   "name": "stashbin",
-  "version": "0.2.0",
-  "author": "Gaung Ramadhan <hi@mrmiss.my.id>",
+  "version": "0.2.1",
+  "author": "Gaung Ramadhan <hi@mrmiss.dev>",
   "private": true,
   "scripts": {
     "dev": "next dev",
