@@ -1,36 +1,27 @@
 import type { NextPage } from "next"
 import { useRouter } from "next/router"
-import { useState, useRef } from "react"
+import { useState, useRef, useCallback } from "react"
 
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import styles from "../styles/Main.module.scss"
+import { createDocument } from "../libs/document"
 
 const Home: NextPage = () => {
   const contentRef = useRef<HTMLTextAreaElement>(null)
   const router = useRouter()
   const [saveDisable, setSaveDisable] = useState(true)
 
-  const saveContent = async () => {
+  const saveContent = useCallback(async () => {
     setSaveDisable(true)
-    const response = await fetch("/api/document", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        content: contentRef.current?.value,
-      }),
-    })
-    const result = await response.json()
-    if (response.status === 201) {
-      router.push(`/${result.data.key}`)
+    const key = await createDocument(contentRef.current?.value || "")
+    if (key) {
+      router.push(`/${key}`)
     } else {
-      alert(`Failed to save document: ${result.err}`)
+      alert("Failed to save document")
       setSaveDisable(false)
     }
-  }
+  }, [contentRef])
 
   return (
     <main className={styles.main}>

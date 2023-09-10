@@ -5,8 +5,9 @@ import { useRouter } from "next/router"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import styles from "../styles/Main.module.scss"
-import supabase from "../libs/supabase"
+// import supabase from "../libs/supabase"
 import { useEffect } from "react"
+import { getDocument } from "../libs/document"
 
 interface ContentProps {
   content?: string
@@ -95,22 +96,16 @@ export default function Content({ content, slug }: ContentProps) {
 }
 
 export async function getServerSideProps({ params }: GetServerSidePropsContext) {
-  // const redirectResponse = {
-  //     redirect: {
-  //         destination: "/",
-  //         permanent: 200,
-  //     },
-  // }
-
   if (!params) {
     return { props: {} }
   }
-  const { data, error } = await supabase.from("documents").select("*").eq("slug", params.slug)
-  if (error || !data || data.length === 0) {
+
+  const content = await getDocument(params.slug as string)
+  if (!content) {
     return { props: {} }
   }
 
   return {
-    props: { content: data[0].content, slug: params.slug },
+    props: { content, slug: params.slug },
   }
 }

@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext } from "next"
 
-import supabase from "../../libs/supabase"
+import { getDocument } from "../../libs/document"
 
 export default function RawContent() {
   return null // content is not rendered as html
@@ -17,14 +17,14 @@ export async function getServerSideProps({ params, res }: GetServerSidePropsCont
   if (!params) {
     return redirectResponse
   }
-  const { data, error } = await supabase.from("documents").select("*").eq("slug", params.slug)
-  if (error || !data || data.length === 0) {
-    return redirectResponse
+  const content = await getDocument(params.slug as string)
+  if (!content) {
+    return { props: {} }
   }
 
   // serve as raw text
   res.setHeader("Content-Type", "text/plain")
-  res.write(data[0].content)
+  res.write(content)
   res.end()
 
   return { props: {} }

@@ -1,19 +1,13 @@
 // @ts-nocheck
 
 interface Environment {
-  supabase: {
-    url: string
-    apiKey: string
-  }
+  gatewayUrl: string
   isProduction: boolean
   environment: string
 }
 
 export const Environment: Environment = {
-  supabase: {
-    url: process.env.NEXT_PUBLIC_SUPABASE_URL,
-    apiKey: process.env.NEXT_SUPABASE_KEY,
-  },
+  gatewayUrl: process.env.NEXT_PUBLIC_GATEWAY_URL,
   isProduction: process.env.NEXT_PUBLIC_ENV === "production",
   environment: process.env.NEXT_PUBLIC_ENV,
 }
