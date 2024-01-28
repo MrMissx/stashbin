@@ -1,0 +1,13 @@
+{
+  "name": "stashbin",
+  "version": "0.0.1",
+  "private": true,
+  "description": "",
+  "scripts": {
+    "build": "tailwindcss build -o assets/style.css",
+    "watch": "tailwindcss build -o assets/style.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}

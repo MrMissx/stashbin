@@ -1,0 +1,9 @@
+package view
+
+import "github.com/mrmissx/stashbin/view/layout"
+
+templ Hello(name string) {
+	@layout.BaseLayout() {
+		<div class="bg-blue-500">Hello, { name }</div>
+	}
+}
