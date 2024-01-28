@@ -4,9 +4,9 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
-	"github.com/mrmissx/stashbin/utils"
+	"github.com/mrmissx/stashbin/response"
 )
 
 func HealthCheck(c echo.Context) error {
-	return c.JSON(http.StatusOK, utils.JSON{"message": "ok"})
+	return c.JSON(http.StatusOK, response.JSON{"message": "ok"})
 }

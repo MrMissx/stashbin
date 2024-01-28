@@ -44,14 +44,14 @@ func main() {
 	root := app.Group("")
 	{
 		root.GET("/", page.HomeHandler)
-		root.GET("/about", page.HomeHandler)
-		root.GET("/:slug", page.HomeHandler)
+		root.GET("/about", page.AboutHandler)
+		root.GET("/:slug", page.DocumentPageHandler)
 
 		apiGroup := root.Group("/api")
 		{
-			apiGroup.GET("/health", api.HealthCheck)
-			apiGroup.GET("/document", api.GetDocumentBySlug)
 			apiGroup.POST("/document", api.CreateDocument)
+			apiGroup.GET("/document", api.GetDocumentBySlug)
+			apiGroup.GET("/health", api.HealthCheck)
 		}
 	}
 

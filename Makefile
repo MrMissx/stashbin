@@ -29,6 +29,9 @@ dev: ## Run dev server
 	@echo "Running dev server..."
 	@$(NPM_CMD) run watch & $(GO_CMD) run $(ENTRYPOINT) && kill $!
 
+dev-go: ## Run dev server (Go only)
+	@$(GO_CMD) run $(ENTRYPOINT)
+
 
 clean: ## Cleanup the project
 	@echo "Cleaning up files"
