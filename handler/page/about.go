@@ -10,5 +10,5 @@ import (
 )
 
 func AboutHandler(c echo.Context) error {
-	return response.Render(c, http.StatusOK, view.Hello("Hello World"))
+	return response.Render(c, http.StatusOK, view.About())
 }

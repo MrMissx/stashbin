@@ -1,22 +1,22 @@
-package utils
+package database
 
 import (
-	"log"
 	"time"
 
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
+	"github.com/mrmissx/stashbin/utils"
 )
 
 var session *sqlx.DB
 
 func ConnectDb() {
-	dbUri := GetEnv("DB_URI", "")
+	dbUri := utils.GetEnv("DB_URI", "")
 	if dbUri == "" {
-		log.Fatal("DB_URI is not set")
+		utils.Logger.Fatal("DB_URI is not set")
 	}
 
-	log.Println("Connecting to database...")
+	utils.Logger.Info("Connecting to database...")
 
 	db := sqlx.MustConnect("postgres", dbUri)
 	db.SetMaxIdleConns(5)
@@ -24,7 +24,7 @@ func ConnectDb() {
 	db.SetConnMaxLifetime(10 * time.Second)
 
 	session = db
-	log.Println("Successfuly connected database")
+	utils.Logger.Info("Successfuly connected database")
 }
 
 func GetDatabase() *sqlx.DB {

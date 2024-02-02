@@ -6,6 +6,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/mrmissx/stashbin/database"
 	"github.com/mrmissx/stashbin/handler/api"
 	"github.com/mrmissx/stashbin/handler/page"
 	"github.com/mrmissx/stashbin/utils"
@@ -15,7 +16,7 @@ import (
 
 func setupApp() *echo.Echo {
 	app := echo.New()
-	utils.ConnectDb()
+	database.ConnectDb()
 
 	app.HideBanner = true
 
@@ -26,11 +27,13 @@ func setupApp() *echo.Echo {
 	app.Use(
 		middleware.LoggerWithConfig(
 			middleware.LoggerConfig{
-				Format: "[${time_rfc3339}] (${remote_ip}) ${latency_human} ${status} ${method} ${path}\n",
+				Format: `[${time_rfc3339}] (${remote_ip}) ${latency_human} ${status} ${method} ${path}
+{"user_agent": "${user_agent}", "latency": "${latency_human}", "Hx-Request": "${header:Hx-Request}"}
+`,
 				Output: os.Stdout,
 			},
 		),
-		database(),
+		dbMidleware(),
 	)
 
 	app.Static("/assets", "assets")
@@ -59,10 +62,10 @@ func main() {
 }
 
 // Inject db to context
-func database() echo.MiddlewareFunc {
+func dbMidleware() echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(ctx echo.Context) error {
-			ctx.Set("db", utils.GetDatabase())
+			ctx.Set("db", database.GetDatabase())
 			return next(ctx)
 		}
 	}

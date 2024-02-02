@@ -10,7 +10,19 @@ import (
 )
 
 func GetDocumentBySlug(c echo.Context) error {
-	return c.JSON(http.StatusOK, response.JSON{"message": "GET /api/document"})
+	var doc *model.Document = &model.Document{}
+	slug := c.QueryParam("key")
+	if slug == "" {
+		return c.JSON(http.StatusBadRequest, response.ErrNoKeyQuery)
+	}
+
+	db := c.Get("db").(*sqlx.DB)
+	document, err := doc.GetBySlug(db, slug)
+	if err != nil {
+		return c.JSON(http.StatusNotFound, response.ErrDocumentNotFound)
+	}
+
+	return c.JSON(http.StatusOK, response.NewResult("successfuly retrieved document", response.JSON{"content": document.Content}))
 }
 
 func CreateDocument(c echo.Context) error {

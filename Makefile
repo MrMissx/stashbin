@@ -7,8 +7,9 @@ TEMPL_CMD = $(GOPATH)/bin/templ
 
 # Goose DB Migration
 include .env
-MIGRATION_DIR = migrations
-GOOSE_CMD = $(GOPATH)/bin/goose -dir $(MIGRATION_DIR) postgres "$(DB_URI)"	
+MIGRATION_DIR = database/migrations
+MIGRATE_SOURCE = -database $(DB_URI)
+MIGRATE_CMD = $(GOPATH)/bin/migrate
 
 ENTRYPOINT = stashbin.go
 
@@ -20,10 +21,12 @@ help:
 
 generate:  ## Generate templ files
 	@echo "Generating templ files..."
-	@$(TEMPL_CMD) generate 
+	@$(TEMPL_CMD) generate
 	@echo "Generating static files..."
-	@$(GO_CMD) generate ./...
+	@$(NPM_CMD) run build
 
+build: generate ## build Production Executable
+	go build -o $(BUILD_NAME)
 
 dev: ## Run dev server
 	@echo "Running dev server..."
@@ -40,14 +43,14 @@ clean: ## Cleanup the project
 	@rm -rf ./view/*templ.go
 
 
-migrate-status:  ## Print migration status
-	@$(GOOSE_CMD) status
+version:  ## Print migration version
+	@$(MIGRATE_CMD) -path $(MIGRATION_DIR) $(MIGRATE_SOURCE) version
 
 revision:  ## Create new migration file
-	@$(GOOSE_CMD) create $(name) sql
+	@$(MIGRATE_CMD) create -ext sql -dir $(MIGRATION_DIR) $(name) 
 
 upgrade:  ## Migrate the DB to the most recent version available
-	@$(GOOSE_CMD) up
+	@$(MIGRATE_CMD) -path $(MIGRATION_DIR) $(MIGRATE_SOURCE) up
 
 downgrade: ## Roll back the DB version by 1
-	@$(GOOSE_CMD) down
+	@$(MIGRATE_CMD) -path $(MIGRATION_DIR) $(MIGRATE_SOURCE) down
