@@ -32,7 +32,7 @@ dev: ## Run dev server
 	@echo "Running dev server..."
 	@$(NPM_CMD) run watch & $(GO_CMD) run $(ENTRYPOINT) && kill $!
 
-dev-go: ## Run dev server (Go only)
+dev-go: generate ## Run dev server (Go only)
 	@$(GO_CMD) run $(ENTRYPOINT)
 
 

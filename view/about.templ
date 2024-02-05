@@ -5,7 +5,73 @@ import "github.com/mrmissx/stashbin/view/layout"
 templ About() {
 	@layout.BaseLayout() {
 		@layout.Header()
-		<main></main>
+		<article class="w-full h-[calc(100vh-6rem)] px-8 py-4 space-y-4 overflow-y-scroll bg-secondary">
+			<div class="space-y-3">
+				<h1 class="font-bold text-2xl">StashBin | simple pastebin for your text file.</h1>
+				<p>
+					Paste, save and share your file easily to everyone in the world.
+					<br/>
+					Stashbin is an open source pastebin service. You can find the source code on
+					<a href="https://github.com/mrmissx/stashbin">Github.</a>
+					<br/>
+					By default stashbin supports font ligatures like
+					&lt;=, &gt;=, ==, !=, =&gt; etc. Make your code more readable and beautiful with ligatures.
+				</p>
+			</div>
+			<div class="space-y-3">
+				<h2 class="font-semibold text-xl">Document Lifetime</h2>
+				<p>
+					StashBin have no explicit document expiration time.
+					However old documents may be removed at any time without notice.
+				</p>
+			</div>
+			<div class="space-y-3">
+				<h2 class="font-semibold text-xl">Privacy</h2>
+				<p>
+					StashBin does not collect any personal information.
+					We do not store any information about
+					your IP address, browser, or any other information.
+				</p>
+			</div>
+			<div class="space-y-3">
+				<h2 class="font-semibold text-xl">Security</h2>
+				<p>
+					StashBin only act as a simple storage for your text.
+					While we try to keep your documents from being crawled by search engines,we cannot guarantee that
+					your documents will not be found by other means. Please do not store
+					any sensitive information in your documents.
+				</p>
+			</div>
+			<div class="space-y-3">
+				<h2 class="font-semibold text-xl">API Endpoint</h2>
+				<p>
+					You can use the API to create and read documents. You can send a http POST with a JSON body containing field named 'content'. Other than that, it will response a Bad Request. Here an example using curl.
+				</p>
+				<pre class="pl-4 py-2 overflow-auto bg-gray-800">
+					<code>
+						{ `curl -X POST \
+'https://stashbin.xyz/api/document' \
+--header 'Content-Type: application/json' \
+--data-raw '{ "content": "Hi Mom" }'` }
+					</code>
+				</pre>
+				<p>
+					And you can GET your document in JSON format with the key received from POST on 
+				</p>
+				<pre class="pl-4 py-2 overflow-auto bg-gray-800">
+					<code>
+						{ `curl -X GET \
+'https://stashbin.xyz/api/document?key=examplekey'` }
+					</code>
+				</pre>
+				<p>
+					If you only want the content as a plain text, you can use the raw endpoint.
+				</p>
+				<pre class="pl-4 py-2 overflow-auto bg-gray-800">
+					<code>{ `curl -X GET 'https://stashbin.xyz/raw/examplekey'` }</code>
+				</pre>
+			</div>
+		</article>
 		@layout.Footer()
 	}
 }

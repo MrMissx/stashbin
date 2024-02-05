@@ -16,7 +16,7 @@ import (
 
 func setupApp() *echo.Echo {
 	app := echo.New()
-	database.ConnectDb()
+	// database.ConnectDb()
 
 	app.HideBanner = true
 
