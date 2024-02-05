@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap");
+
+::-webkit-input-placeholder {
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+
+::-webkit-scrollbar-track {
+  background: #222635;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #353b59;
+  border-radius: 5px;
+}
+
+:focus {
+  outline: none;
+}
+
+::placeholder {
+  color: #d5e2e6;
+}

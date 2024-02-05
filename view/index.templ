@@ -4,6 +4,10 @@ import "github.com/mrmissx/stashbin/view/layout"
 
 templ Hello(name string) {
 	@layout.BaseLayout() {
-		<div class="bg-blue-500">Hello, { name }</div>
+		@layout.Header()
+		<main>
+			<textarea class="w-full h-[calc(100vh-6rem)] px-6 py-4 resize-none" name="content" placeholder="Write or paste, save and share the link..."></textarea>
+		</main>
+		@layout.Footer()
 	}
 }

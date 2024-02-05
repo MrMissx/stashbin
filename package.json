@@ -4,8 +4,8 @@
   "private": true,
   "description": "",
   "scripts": {
-    "build": "tailwindcss build -o assets/style.css",
-    "watch": "tailwindcss build -o assets/style.css --watch"
+    "build": "tailwindcss build -o public/assets/style.css",
+    "watch": "tailwindcss build -o public/assets/style.css --watch"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.1"

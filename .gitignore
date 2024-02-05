@@ -3,5 +3,5 @@ node_modules
 .env
 
 # build output
-assets/style.css
+public/assets/style.css
 stashbin

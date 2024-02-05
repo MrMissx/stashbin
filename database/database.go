@@ -20,7 +20,7 @@ func ConnectDb() {
 
 	db := sqlx.MustConnect("postgres", dbUri)
 	db.SetMaxIdleConns(5)
-	db.SetMaxOpenConns(10)
+	db.SetMaxOpenConns(25)
 	db.SetConnMaxLifetime(10 * time.Second)
 
 	session = db

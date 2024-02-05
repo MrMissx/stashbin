@@ -22,9 +22,10 @@ func setupApp() *echo.Echo {
 
 	app.Pre(middleware.RemoveTrailingSlash())
 	app.Pre(middleware.Recover())
-	app.Pre(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
+	app.Pre(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(50)))
 
 	app.Use(
+		middleware.CORS(),
 		middleware.LoggerWithConfig(
 			middleware.LoggerConfig{
 				Format: `[${time_rfc3339}] (${remote_ip}) ${latency_human} ${status} ${method} ${path}
@@ -36,7 +37,10 @@ func setupApp() *echo.Echo {
 		dbMidleware(),
 	)
 
-	app.Static("/assets", "assets")
+	app.Static("/assets", "./public/assets")
+	app.File("/manifest.json", "./public/manifest.json")
+	app.File("/robots.txt", "./public/robots.txt")
+	app.File("/sitemap.xml", "./public/sitemap.xml")
 
 	return app
 }

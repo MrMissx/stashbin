@@ -40,7 +40,7 @@ clean: ## Cleanup the project
 	@echo "Cleaning up files"
 	@rm -f $(BINARY_NAME)
 	@rm -rf ./assets
-	@rm -rf ./view/*templ.go
+	@rm -rf ./view/**/*templ.go
 
 
 version:  ## Print migration version

@@ -4,6 +4,8 @@ import "github.com/mrmissx/stashbin/view/layout"
 
 templ About() {
 	@layout.BaseLayout() {
-		<div class="bg-blue-500">About Page</div>
+		@layout.Header()
+		<main></main>
+		@layout.Footer()
 	}
 }
