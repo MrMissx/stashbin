@@ -38,6 +38,8 @@ func setupApp() *echo.Echo {
 	)
 
 	app.Static("/assets", "./public/assets")
+	app.Static("/images", "./public/images")
+	app.File("/favicon.ico", "./public/favicon.ico")
 	app.File("/manifest.json", "./public/manifest.json")
 	app.File("/robots.txt", "./public/robots.txt")
 	app.File("/sitemap.xml", "./public/sitemap.xml")

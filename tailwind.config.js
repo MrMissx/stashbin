@@ -5,7 +5,8 @@ module.exports = {
   theme: {
     extend: {
       textColor: {
-        "primary": "#fff"
+        "primary": "#fff",
+        "editor": "#d5e2e6"
       },
       backgroundColor: {
         "primary": "#1b1e2b",
