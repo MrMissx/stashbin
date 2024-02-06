@@ -21,5 +21,5 @@ func DocumentPageHandler(c echo.Context) error {
 		c.Redirect(http.StatusTemporaryRedirect, "/")
 		return nil
 	}
-	return response.Render(c, http.StatusOK, view.Document(document.Content))
+	return response.Render(c, http.StatusOK, view.Document(document.Content, document.Slug))
 }

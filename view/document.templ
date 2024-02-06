@@ -2,10 +2,13 @@ package view
 
 import "github.com/mrmissx/stashbin/view/layout"
 import "strings"
+import "github.com/mrmissx/stashbin/view/icons"
 
-templ Document(content string) {
+templ Document(content string, slug string) {
 	@layout.BaseLayout() {
-		@layout.Header()
+		@layout.Header() {
+			@icons.Tools(slug)
+		}
 		<main>
 			<pre class="bg-secondary overflow-auto h-[calc(100vh-6rem)] px-4 py-2">
 				<il class="list-decimal list-outside">

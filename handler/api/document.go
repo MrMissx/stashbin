@@ -28,6 +28,8 @@ func GetDocumentBySlug(c echo.Context) error {
 func CreateDocument(c echo.Context) error {
 	var doc *model.Document = &model.Document{}
 
+	is_htmx := c.Request().Header.Get("Hx-Request")
+
 	if err := (&echo.DefaultBinder{}).BindBody(c, doc); err != nil {
 		return c.JSON(http.StatusBadRequest, response.ErrInvalidBody)
 	}
@@ -38,6 +40,12 @@ func CreateDocument(c echo.Context) error {
 	db := c.Get("db").(*sqlx.DB)
 	if err := doc.Create(db); err != nil {
 		return c.JSON(http.StatusInternalServerError, response.ErrInternalServerError)
+	}
+
+	if is_htmx == "true" {
+		c.Response().Header().Set("HX-Location", "/"+doc.Slug)
+		c.Response().WriteHeader(http.StatusCreated)
+		return nil
 	}
 
 	return c.JSON(http.StatusCreated, response.NewResult(
