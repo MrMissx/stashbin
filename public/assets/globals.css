@@ -6,6 +6,10 @@ body {
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+pre {
+  font-family: "Fira Code", monospace;
+}
+
 ::-webkit-input-placeholder {
   color: white;
 }
@@ -30,4 +34,9 @@ body {
 
 ::placeholder {
   color: #d5e2e6;
+}
+
+li::marker {
+  color: #a2acaf;
+  padding-left: 1rem;
 }
