@@ -1,8 +1,6 @@
 package database
 
 import (
-	"time"
-
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 	"github.com/mrmissx/stashbin/utils"
@@ -19,9 +17,6 @@ func ConnectDb() {
 	utils.Logger.Info("Connecting to database...")
 
 	db := sqlx.MustConnect("postgres", dbUri)
-	db.SetMaxIdleConns(5)
-	db.SetMaxOpenConns(25)
-	db.SetConnMaxLifetime(10 * time.Second)
 
 	session = db
 	utils.Logger.Info("Successfuly connected database")
