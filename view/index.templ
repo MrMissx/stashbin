@@ -5,13 +5,13 @@ import "github.com/mrmissx/stashbin/view/icons"
 
 templ Home() {
 	@layout.BaseLayout() {
-		<form hx-post="/api/document" hx-trigger="keydown[keyCode === 83 && (ctrlKey || metaKey)]">
+		<form hx-post="/api/document" hx-trigger="keydown[keyCode === 83 && (ctrlKey || metaKey)] changed once">
 			@layout.Header() {
 				@icons.Save()
 			}
 			<main>
 				<textarea
-					class="w-full h-[calc(100vh-6rem)] px-6 py-4 resize-none bg-secondary text-editor"
+					class="w-full h-[calc(100vh-7rem)] px-6 py-4 resize-none bg-secondary text-editor"
 					id="editor"
 					name="content"
 					placeholder="Write or paste, save and share the link..."
