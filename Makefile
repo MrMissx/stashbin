@@ -1,12 +1,15 @@
 # Base command
-NPM_CMD = npm
+NPM_CMD = pnpm
 GO_CMD = go
 
 # Templ
 TEMPL_CMD = $(GOPATH)/bin/templ
 
 # Goose DB Migration
-include .env
+ifneq ("$(wildcard .env)","")
+	include .env
+endif
+
 MIGRATION_DIR = database/migrations
 MIGRATE_SOURCE = -database $(DB_URI)
 MIGRATE_CMD = $(GOPATH)/bin/migrate
@@ -18,6 +21,9 @@ BUILD_NAME = stashbin
 help:
 	@egrep -h '\s##\s' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m  %-15s\033[0m %s\n", $$1, $$2}'
 
+install:  ## Install all dependencies
+	@$(GO_CMD) mod download
+	@$(NPM_CMD) install
 
 generate:  ## Generate templ files
 	@echo "Generating templ files..."
@@ -40,7 +46,7 @@ clean: ## Cleanup the project
 	@echo "Cleaning up files"
 	@rm -f $(BINARY_NAME)
 	@rm -rf ./assets
-	@rm -rf ./view/**/*templ.go
+	@rm -rf ./view/*templ.go
 
 
 version:  ## Print migration version
