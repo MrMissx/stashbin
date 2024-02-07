@@ -1,43 +1,34 @@
-
-FROM node:18-alpine AS base
-
-FROM base AS deps
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat
+FROM golang:1.21-alpine AS build
 
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml ./
-RUN yarn global add pnpm && pnpm i
+RUN apk update && \
+    apk add --no-cache \
+    nodejs \
+    npm \
+    make
 
+RUN npm i -g pnpm
 
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+COPY Makefile ./
+COPY go.mod go.sum package.json pnpm-lock.yaml ./
+
+RUN make install
+RUN go mod verify
+RUN go install github.com/a-h/templ/cmd/templ@latest
+
 COPY . .
 
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
+RUN make generate
+RUN make build
 
-ARG NEXT_PUBLIC_GATEWAY_URL
 
-RUN yarn build
+FROM alpine as runner
 
-FROM base AS runner
 WORKDIR /app
 
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
+COPY --from=build /app/stashbin .
+COPY --from=build /app/public ./public
+COPY --from=build /app/view/*/**.go .
 
-RUN \
-  addgroup -g 1001 -S nodejs; \
-  adduser -S nextjs -u 1001
-
-COPY --from=builder /app/public ./public
-
-COPY --from=builder --chown=1001:1001 /app/.next/standalone ./
-COPY --from=builder --chown=1001:1001 /app/.next/static ./.next/static
-
-USER nextjs
-
-CMD ["node", "server.js"]
+CMD ["./stashbin"]

@@ -1,0 +1,31 @@
+package view
+
+import "github.com/mrmissx/stashbin/view/layout"
+import "github.com/mrmissx/stashbin/view/icons"
+
+templ Home() {
+	@layout.BaseLayout() {
+		<form hx-post="/api/document" hx-trigger="keydown[keyCode === 83 && (ctrlKey || metaKey)] changed once">
+			@layout.Header() {
+				@icons.Save()
+			}
+			<main>
+				<textarea
+					class="w-full h-[calc(100vh-7rem)] px-6 py-4 resize-none bg-secondary text-editor"
+					id="editor"
+					name="content"
+					placeholder="Write or paste, save and share the link..."
+				></textarea>
+			</main>
+		</form>
+		@layout.Footer()
+		<script>
+			document.addEventListener("keydown", (e) => {
+				if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+					e.preventDefault();
+					return
+				}
+			}, false);
+		</script>
+	}
+}

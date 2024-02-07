@@ -1,0 +1,25 @@
+package view
+
+import "github.com/mrmissx/stashbin/view/layout"
+import "strings"
+import "github.com/mrmissx/stashbin/view/icons"
+
+templ Document(content string, slug string) {
+	@layout.BaseLayout() {
+		@layout.Header() {
+			@icons.Tools(slug)
+		}
+		<main>
+			<pre class="bg-secondary overflow-auto h-[calc(100vh-6rem)] px-4 py-2">
+				<il class="list-decimal list-outside">
+					for _, line := range strings.Split(content, "\n") {
+						<li>
+							<code class="m-0 z-10 whitespace-pre-wrap">{ line }</code>
+						</li>
+					}
+				</il>
+			</pre>
+		</main>
+		@layout.Footer()
+	}
+}

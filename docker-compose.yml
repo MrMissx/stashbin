@@ -2,23 +2,13 @@ version: "3.9"
 
 services:
   stashbin:
-    image: stashbin
     container_name: stashbin
     build:
       context: .
       dockerfile: Dockerfile
     environment:
-      NEXT_PUBLIC_GATEWAY_URL: http://stashbin-backend:8080/api # point this to the backend service
-    ports:
-      - 8000:3000
-    restart: unless-stopped
-
-  stashbin-backend:
-    image: ghcr.io/mrmissx/stashbin-backend:latest
-    container_name: stashbin-backend
-    environment:
-      GIN_MODE: release
       DB_URI:
+      PORT: 5000
     ports:
-      - 8001:8080
+      - "5000:5000"
     restart: unless-stopped

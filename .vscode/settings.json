@@ -1,6 +1,15 @@
 {
-    "editor.codeActionsOnSave": {
-        "source.fixAll": true,
-    },
-    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingEmptyBraces": false,
+  "editor.formatOnSave": true,
+  "[templ]": {
+    "editor.defaultFormatter": "a-h.templ",
+    "editor.rulers": [
+      120
+    ],
+  },
+  "emmet.includeLanguages": {
+    "templ": "html"
+  },
+  "tailwindCSS.includeLanguages": {
+    "templ": "html"
+  }
 }

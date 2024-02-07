@@ -1,0 +1,1 @@
+ALTER TABLE documents ADD views int8 NOT NULL DEFAULT 0

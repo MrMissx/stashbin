@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap");
+
+html,
+body {
+  font-family: "Fira Code", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+pre {
+  font-family: "Fira Code", monospace;
+}
+
+::-webkit-input-placeholder {
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+
+::-webkit-scrollbar-track {
+  background: #222635;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #353b59;
+  border-radius: 5px;
+}
+
+:focus {
+  outline: none;
+}
+
+::placeholder {
+  color: #d5e2e6;
+}
+
+li::marker {
+  color: #a2acaf;
+  padding-left: 1rem;
+}

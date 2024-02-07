@@ -1,23 +1,23 @@
 {
-    "name": "StashBin",
-    "short_name": "StashBin | A simple, free open-source pastebin for your text file.",
-    "description": "StashBin is a free pastebin to store and share your text file easily.",
-    "icons": [
-        {
-            "src": "/images/android-chrome-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png",
-            "purpose": "maskable any"
-        },
-        {
-            "src": "/images/android-chrome-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "maskable any"
-        }
-    ],
-    "theme_color": "#b78f30",
-    "background_color": "#1b1e2b",
-    "display": "standalone",
-    "start_url": "/"
+  "name": "StashBin",
+  "short_name": "StashBin | A simple, free open-source pastebin for your text file.",
+  "description": "StashBin is a free pastebin to store and share your text file easily.",
+  "icons": [
+    {
+      "src": "/images/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "theme_color": "#b78f30",
+  "background_color": "#1b1e2b",
+  "display": "standalone",
+  "start_url": "/"
 }
