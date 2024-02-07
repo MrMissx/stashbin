@@ -26,14 +26,6 @@ func setupApp() *echo.Echo {
 
 	app.Use(
 		middleware.CORS(),
-		middleware.LoggerWithConfig(
-			middleware.LoggerConfig{
-				Format: `[${time_rfc3339}] (${remote_ip}) ${latency_human} ${status} ${method} ${path}
-{"user_agent": "${user_agent}", "latency": "${latency_human}", "Hx-Request": "${header:Hx-Request}"}
-`,
-				Output: os.Stdout,
-			},
-		),
 		dbMidleware(),
 	)
 
@@ -44,24 +36,45 @@ func setupApp() *echo.Echo {
 	app.File("/robots.txt", "./public/robots.txt")
 	app.File("/sitemap.xml", "./public/sitemap.xml")
 
+	app.GET("/health", api.HealthCheck)
+
 	return app
 }
 
 func main() {
 	app := setupApp()
 
-	root := app.Group("")
+	pageGroup := app.Group("")
 	{
-		root.GET("/", page.HomeHandler)
-		root.GET("/about", page.AboutHandler)
-		root.GET("/:slug", page.DocumentPageHandler)
+		pageGroup.Use(
+			middleware.LoggerWithConfig(
+				middleware.LoggerConfig{
+					Format: "[${time_rfc3339}] (${remote_ip}) ${latency_human} ${status} ${method} ${path}\n",
+					Output: os.Stdout,
+				},
+			),
+		)
+		pageGroup.GET("/", page.HomeHandler)
+		pageGroup.GET("/about", page.AboutHandler)
+		pageGroup.GET("/:slug", page.DocumentPageHandler)
+		pageGroup.GET("/raw/:slug", page.RawPageHandler)
 
-		apiGroup := root.Group("/api")
-		{
-			apiGroup.POST("/document", api.CreateDocument)
-			apiGroup.GET("/document", api.GetDocumentBySlug)
-			apiGroup.GET("/health", api.HealthCheck)
-		}
+	}
+
+	apiGroup := app.Group("/api")
+	{
+		apiGroup.Use(
+			middleware.LoggerWithConfig(
+				middleware.LoggerConfig{
+					Format: `[${time_rfc3339}] (${remote_ip}) ${latency_human} ${status} ${method} ${path}
+{"user_agent": "${user_agent}", "latency": "${latency_human}", "Hx-Request": "${header:Hx-Request}"}
+`,
+					Output: os.Stdout,
+				},
+			),
+		)
+		apiGroup.POST("/document", api.CreateDocument)
+		apiGroup.GET("/document", api.GetDocumentBySlug)
 	}
 
 	app.Logger.Fatal(app.Start(fmt.Sprintf(":%v", utils.GetEnv("PORT", "8080"))))
