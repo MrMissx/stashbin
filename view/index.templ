@@ -5,7 +5,7 @@ import "github.com/mrmissx/stashbin/view/icons"
 
 templ Home() {
 	@layout.BaseLayout() {
-		<form hx-post="/api/document" hx-trigger="keydown[keyCode === 83 && (ctrlKey || metaKey)] changed once">
+		<form hx-post="/api/document" hx-trigger="keydown[keyCode === 83 && (ctrlKey || metaKey)]">
 			@layout.Header() {
 				@icons.Save()
 			}
