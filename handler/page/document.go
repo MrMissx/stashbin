@@ -16,10 +16,10 @@ func DocumentPageHandler(c echo.Context) error {
 	slug := c.Param("slug")
 
 	db := c.Get("db").(*sqlx.DB)
-	document, err := doc.GetBySlug(db, slug)
+	err := doc.GetBySlug(db, slug)
 	if err != nil {
 		c.Redirect(http.StatusTemporaryRedirect, "/")
 		return nil
 	}
-	return response.Render(c, http.StatusOK, view.Document(document.Content, document.Slug))
+	return response.Render(c, http.StatusOK, view.Document(doc.Content, doc.Slug))
 }

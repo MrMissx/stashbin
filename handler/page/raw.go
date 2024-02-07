@@ -14,11 +14,11 @@ func RawPageHandler(c echo.Context) error {
 	slug := c.Param("slug")
 
 	db := c.Get("db").(*sqlx.DB)
-	document, err := doc.GetBySlug(db, slug)
+	err := doc.GetBySlug(db, slug)
 	if err != nil {
 		c.Redirect(http.StatusTemporaryRedirect, "/")
 		return nil
 	}
 	c.Response().Header().Set("Content-Type", "text/plain")
-	return c.HTML(http.StatusOK, document.Content)
+	return c.HTML(http.StatusOK, doc.Content)
 }

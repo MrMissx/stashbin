@@ -51,18 +51,17 @@ func (doc *Document) incrementViews(db *sqlx.DB) {
 	}
 }
 
-func (doc *Document) GetBySlug(db *sqlx.DB, slug string) (*Document, error) {
-	var result Document
+func (doc *Document) GetBySlug(db *sqlx.DB, slug string) error {
 	err := db.QueryRowx(
 		"SELECT slug, content, created_at, views FROM documents WHERE slug = $1 LIMIT 1",
 		slug,
-	).Scan(&result.Slug, &result.Content, &result.CreatedAt, &result.Views)
+	).Scan(&doc.Slug, &doc.Content, &doc.CreatedAt, &doc.Views)
 
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	go result.incrementViews(db)
+	go doc.incrementViews(db)
 
-	return &result, nil
+	return nil
 }
