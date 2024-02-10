@@ -29,6 +29,5 @@ WORKDIR /app
 
 COPY --from=build /app/stashbin .
 COPY --from=build /app/public ./public
-COPY --from=build /app/view/*/**.go .
 
 CMD ["./stashbin"]
