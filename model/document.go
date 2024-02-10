@@ -17,6 +17,7 @@ type Document struct {
 
 func insertDocument(db *sqlx.DB, doc *Document, retry int) error {
 	if retry > 3 {
+		utils.Logger.Warning("Failed to insert document after 3 retries")
 		return nil
 	}
 
@@ -33,6 +34,7 @@ func insertDocument(db *sqlx.DB, doc *Document, retry int) error {
 		pgErr, ok := err.(*pq.Error)
 		// duplicate slug
 		if ok && pgErr.Code == "23505" && retry <= 3 {
+			utils.Logger.Warning("Slug %s already exists, retrying...", doc.Slug)
 			return insertDocument(db, doc, retry+1)
 		}
 	}
@@ -45,10 +47,18 @@ func (doc *Document) Create(db *sqlx.DB) error {
 }
 
 func (doc *Document) incrementViews(db *sqlx.DB) {
-	_, err := db.Exec("UPDATE documents SET views = views + 1 WHERE slug = $1", doc.Slug)
-	if err != nil {
-		utils.Logger.Error("Failed to update document '%v' : %v", doc.Slug, err)
-	}
+	tx, err := db.Beginx()
+
+	defer func() {
+		if err != nil {
+			tx.Rollback()
+			utils.Logger.Error("Failed to start transaction: %v", err)
+		} else {
+			tx.Commit()
+		}
+	}()
+
+	_, err = tx.Exec("UPDATE documents SET views = views + 1 WHERE slug = $1", doc.Slug)
 }
 
 func (doc *Document) GetBySlug(db *sqlx.DB, slug string) error {
