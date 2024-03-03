@@ -5,7 +5,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 
-	"github.com/mrmissx/stashbin/response"
+	"github.com/mrmissx/stashbin/utils/response"
 	"github.com/mrmissx/stashbin/view"
 )
 

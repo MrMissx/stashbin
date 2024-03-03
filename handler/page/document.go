@@ -6,8 +6,8 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/labstack/echo/v4"
 
-	"github.com/mrmissx/stashbin/model"
-	"github.com/mrmissx/stashbin/response"
+	"github.com/mrmissx/stashbin/database/model"
+	"github.com/mrmissx/stashbin/utils/response"
 	"github.com/mrmissx/stashbin/view"
 )
 

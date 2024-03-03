@@ -6,7 +6,7 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/labstack/echo/v4"
 
-	"github.com/mrmissx/stashbin/model"
+	"github.com/mrmissx/stashbin/database/model"
 )
 
 func RawPageHandler(c echo.Context) error {
