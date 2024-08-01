@@ -1,9 +1,13 @@
 package main
 
 import (
+	"errors"
 	"fmt"
+	"net/http"
 	"os"
+	"strings"
 
+	"github.com/labstack/echo-contrib/echoprometheus"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/mrmissx/stashbin/database"
@@ -19,6 +23,28 @@ func setupApp() *echo.Echo {
 	database.ConnectDb()
 
 	app.HideBanner = true
+
+	app.Use(echoprometheus.NewMiddlewareWithConfig(echoprometheus.MiddlewareConfig{
+		Subsystem: "stashbin",
+		Skipper: func(c echo.Context) bool {
+			prefixes := []string{"/assets", "/images", "/manifest.json", "/robots.txt", "/sitemap.xml", "/metrics", "/health"}
+			for _, prefix := range prefixes {
+				if strings.HasPrefix(c.Path(), prefix) {
+					return true
+				}
+			}
+			return false
+		},
+	}))
+	go func() { // run prometheus metrics on seperate port and goroutine
+		metrics := echo.New()
+		metrics.HideBanner = true
+		metrics.Logger.Info("Starting metrics server on :8081")
+		metrics.GET("/metrics", echoprometheus.NewHandler())
+		if err := metrics.Start(":8081"); err != nil && !errors.Is(err, http.ErrServerClosed) {
+			app.Logger.Fatal(err)
+		}
+	}()
 
 	app.Pre(middleware.RemoveTrailingSlash())
 	app.Pre(middleware.Recover())
