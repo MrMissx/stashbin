@@ -1,12 +1,16 @@
-FROM golang:1.21-alpine AS build
+ARG ARCH
+
+FROM --platform=${ARCH:-linux/amd64} golang:1.24 AS build
 
 WORKDIR /app
 
-RUN apk update && \
-    apk add --no-cache \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
     nodejs \
     npm \
-    make
+    make \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN npm i -g pnpm
 
@@ -23,7 +27,7 @@ RUN make generate
 RUN make build
 
 
-FROM alpine as runner
+FROM debian:bookworm-slim as runner
 
 WORKDIR /app
 
