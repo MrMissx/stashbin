@@ -2,8 +2,6 @@ module github.com/mrmissx/stashbin
 
 go 1.24.2
 
-toolchain go1.23.8
-
 require (
 	github.com/a-h/templ v0.3.857
 	github.com/labstack/echo/v4 v4.12.0

@@ -27,7 +27,7 @@ RUN make generate
 RUN make build
 
 
-FROM debian:bookworm-slim as runner
+FROM --platform=${ARCH:-linux/amd64} debian:bookworm-slim AS runner
 
 WORKDIR /app
 
