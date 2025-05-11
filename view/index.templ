@@ -1,7 +1,9 @@
 package view
 
-import "github.com/mrmissx/stashbin/view/layout"
-import "github.com/mrmissx/stashbin/view/icons"
+import (
+	"github.com/mrmissx/stashbin/view/icons"
+	"github.com/mrmissx/stashbin/view/layout"
+)
 
 templ Home() {
 	@layout.BaseLayout() {
@@ -11,7 +13,7 @@ templ Home() {
 			}
 			<main>
 				<textarea
-					class="w-full h-[calc(100vh-7rem)] px-6 py-4 resize-none bg-secondary text-editor"
+					class="w-full h-[calc(100vh-7rem)] px-6 py-4 resize-none bg-secondary text-editor focus:outline-none focus:ring-0 focus:border-none"
 					id="editor"
 					name="content"
 					placeholder="Write or paste, save and share the link..."
