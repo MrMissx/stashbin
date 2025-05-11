@@ -37,6 +37,11 @@ func setupApp() *echo.Echo {
 		},
 	}))
 	go func() { // run prometheus metrics on seperate port and goroutine
+		disableMetrics := utils.GetEnv("DISABLE_METRICS", "")
+		if disableMetrics == "true" {
+			return
+		}
+
 		metrics := echo.New()
 		metrics.HideBanner = true
 		metrics.Logger.Info("Starting metrics server on :8081")
