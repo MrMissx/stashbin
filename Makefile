@@ -3,7 +3,7 @@ NPM_CMD = pnpm
 GO_CMD = go
 
 # Templ
-TEMPL_CMD = $(GOPATH)/bin/templ
+TEMPL_CMD = $(GO_CMD) tool templ
 
 # Goose DB Migration
 ifneq ("$(wildcard .env)","")
