@@ -1,6 +1,4 @@
-ARG ARCH
-
-FROM --platform=${ARCH:-linux/amd64} golang:1.24 AS build
+FROM golang:1.24 AS build
 
 WORKDIR /app
 
@@ -27,7 +25,7 @@ RUN make generate
 RUN make build
 
 
-FROM --platform=${ARCH:-linux/amd64} debian:bookworm-slim AS runner
+FROM debian:bookworm-slim AS runner
 
 WORKDIR /app
 
