@@ -19,6 +19,7 @@ func RawPageHandler(c echo.Context) error {
 		c.Redirect(http.StatusTemporaryRedirect, "/")
 		return nil
 	}
-	c.Response().Header().Set("Content-Type", "text/plain")
-	return c.HTML(http.StatusOK, doc.Content)
+	c.Response().Header().Set("Content-Type", "text/plain; charset=utf-8")
+	c.Response().Header().Set("Content-Disposition", "inline")
+	return c.String(http.StatusOK, doc.Content)
 }
