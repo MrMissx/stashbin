@@ -4,6 +4,7 @@ SHELL ["/bin/bash", "-lc"]
 
 ARG GO_VERSION=1.25.12
 ARG DEBIAN_FRONTEND=noninteractive
+ARG TARGETARCH
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -16,7 +17,8 @@ RUN apt-get update && \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -fsSL "https://dl.google.com/go/go${GO_VERSION}.linux-arm64.tar.gz" -o /tmp/go.tgz && \
+RUN GOARCH=$(case "${TARGETARCH}" in amd64) echo "amd64";; arm64) echo "arm64";; *) echo "${TARGETARCH}";; esac) && \
+    curl -fsSL "https://dl.google.com/go/go${GO_VERSION}.linux-${GOARCH}.tar.gz" -o /tmp/go.tgz && \
     tar -C /usr/local -xzf /tmp/go.tgz && \
     rm /tmp/go.tgz
 
