@@ -1,7 +1,26 @@
 node_modules
-*_templ.go
-.env
+pnpm-lock.yaml
+package-lock.json
 
-# build output
-public/assets/style.css
+# Env
+.env
+.env.*
+
+# Build artifacts
 stashbin
+public/assets/style.css
+dist/
+coverage/
+tmp/
+logs/
+
+# Go
+vendor/
+*.test
+*.out
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
