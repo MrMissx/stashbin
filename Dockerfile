@@ -31,7 +31,7 @@ COPY package.json pnpm-lock.yaml ./
 RUN corepack enable && corepack prepare pnpm@latest --activate
 RUN pnpm install --frozen-lockfile
 
-COPY Makefile ./
+COPY Makefile .
 COPY go.mod go.sum ./
 RUN make install
 RUN go mod verify
