@@ -1,53 +1,33 @@
-FROM node:22-bookworm-slim AS build
-
-SHELL ["/bin/bash", "-lc"]
-
-ARG GO_VERSION=1.25.12
-ARG DEBIAN_FRONTEND=noninteractive
-ARG TARGETARCH
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-      curl \
-      ca-certificates \
-      make \
-      git \
-      bash \
-      xz-utils \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN GOARCH=$(case "${TARGETARCH}" in amd64) echo "amd64";; arm64) echo "arm64";; *) echo "${TARGETARCH}";; esac) && \
-    curl -fsSL "https://dl.google.com/go/go${GO_VERSION}.linux-${GOARCH}.tar.gz" -o /tmp/go.tgz && \
-    tar -C /usr/local -xzf /tmp/go.tgz && \
-    rm /tmp/go.tgz
-
-ENV PATH=/usr/local/go/bin:$PATH
-RUN /usr/local/go/bin/go version && ln -sf /usr/local/go/bin/go /usr/bin/go && go version
+FROM --platform=$BUILDPLATFORM golang:1.25 AS build
 
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml ./
-RUN corepack enable && corepack prepare pnpm@latest --activate
-RUN pnpm install --frozen-lockfile
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends ca-certificates curl gnupg make && \
+    curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
+    apt-get install -y --no-install-recommends nodejs && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-COPY Makefile .
-COPY go.mod go.sum ./
+RUN npm i -g pnpm
+
+COPY Makefile ./
+COPY go.mod go.sum package.json pnpm-lock.yaml ./
+
 RUN make install
 RUN go mod verify
 RUN go install github.com/a-h/templ/cmd/templ@latest
-RUN go mod tidy
 
 COPY . .
+
+ARG TARGETOS
+ARG TARGETARCH
 RUN make generate
-RUN make build
+RUN GOOS=$TARGETOS GOARCH=$TARGETARCH go build -o stashbin .
 
 FROM debian:bookworm-slim AS runner
-WORKDIR /app
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-      ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
 
 COPY --from=build /app/stashbin .
 COPY --from=build /app/public ./public
