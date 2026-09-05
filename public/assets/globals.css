@@ -1,3 +1,14 @@
+@import "tailwindcss" important;
+
+@source "../../view";
+
+@theme {
+  --color-primary: #1b1e2b;
+  --color-secondary: #292d3e;
+  --color-editor: #d5e2e6;
+  --color-hover: #dda3b2;
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap");
 
 html,

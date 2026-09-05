@@ -4,10 +4,11 @@
   "private": true,
   "description": "",
   "scripts": {
-    "build": "tailwindcss build -o public/assets/style.css",
-    "watch": "tailwindcss build -o public/assets/style.css --watch"
+    "build": "tailwindcss -i public/assets/globals.css -o public/assets/style.css",
+    "watch": "tailwindcss -i public/assets/globals.css -o public/assets/style.css --watch"
   },
   "devDependencies": {
-    "tailwindcss": "^3.4.1"
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
   }
 }
