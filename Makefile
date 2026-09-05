@@ -1,5 +1,5 @@
 # Base command
-NPM_CMD = pnpm
+NPM_CMD = bun
 GO_CMD = go
 
 # Templ

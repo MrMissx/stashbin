@@ -4,16 +4,17 @@ WORKDIR /app
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    nodejs \
-    npm \
+    curl \
+    unzip \
     make \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN npm i -g pnpm
+RUN curl -fsSL https://bun.sh/install | bash
+ENV PATH="/root/.bun/bin:${PATH}"
 
 COPY Makefile ./
-COPY go.mod go.sum package.json pnpm-lock.yaml ./
+COPY go.mod go.sum package.json bun.lock ./
 
 RUN make install
 RUN go mod verify

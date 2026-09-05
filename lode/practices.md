@@ -5,7 +5,7 @@ Patterns and conventions this codebase follows.
 ## Templ workflow
 
 - Views are authored in `view/**/*.templ`; the generated `*_templ.go` files are git-ignored and never edited by hand.
-- Regenerate with `make generate` (runs `go tool templ generate` + `pnpm run build` for Tailwind). Any manual change to a `.templ` file must be followed by regeneration or the build silently uses stale output.
+- Regenerate with `make generate` (runs `go tool templ generate` + `bun run build` for Tailwind). Any manual change to a `.templ` file must be followed by regeneration or the build silently uses stale output.
 
 ## Echo conventions
 
@@ -26,7 +26,7 @@ Patterns and conventions this codebase follows.
 
 ## Tooling
 
-- Go deps: `go mod download`; Node deps: `pnpm install` (`make install` does both).
+- Go deps: `go mod download`; JS deps: `bun install` (`make install` does both). Lockfile is `bun.lock`.
 - Dev: `make dev` (tailwind watch + go run) or `make dev-go` (generate + run).
 - DB migrations: `make revision name=...` / `upgrade` / `downgrade` (golang-migrate CLI at `$(GOPATH)/bin/migrate`, reads `DB_URI` from `.env`).
 - Env config via `.env` (autoloaded by godotenv): `DB_URI` (required), `PORT` (default 8080), `DISABLE_METRICS` (optional).

@@ -4,7 +4,7 @@
 
 Multi-stage:
 
-1. **build** (`golang:1.26`): installs node/pnpm/make, `make install`, `go install templ`, copies source, `make generate` (templ + tailwind), `make build` → binary `stashbin`.
+1. **build** (`golang:1.26`): installs curl/unzip/make, then bun via the install script (`/root/.bun/bin` on PATH). `make install` (go mod download + `bun install`), `go install templ`, copies source, `make generate` (templ + tailwind), `make build` → binary `stashbin`.
 2. **runner** (`debian:bookworm-slim`): copies only the `stashbin` binary, `public/` (static assets), and `database/migrations` (migrations re-apply at boot).
 
 ## docker-compose.yml

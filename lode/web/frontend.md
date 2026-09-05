@@ -31,7 +31,7 @@
   - `@theme { --color-* }` — custom tokens: `primary` (#1b1e2b, bg), `secondary` (#292d3e, bg), `editor` (#d5e2e6, text), `hover` (#dda3b2, text).
 - CLI is `@tailwindcss/cli` (the `tailwindcss` bin): `tailwindcss -i public/assets/globals.css -o public/assets/style.css`.
 - Output `public/assets/style.css` is the **only** stylesheet referenced (base.templ); `globals.css` is compiled in, not served separately.
-- Output is git-ignored; `pnpm run watch` during `make dev`.
+- Output is git-ignored; `bun run watch` during `make dev`.
 - **v4 color-namespace note:** v3 allowed `textColor.primary` (#fff) and `backgroundColor.primary` (#1b1e2b) to differ. v4 unifies colors under `--color-*`, so `text-primary` on `<body>` was renamed to `text-white`.
 - No `tailwind.config.js` — removed in the v4 migration.
 - Layout uses fixed-height calculations (`h-[calc(100vh-7rem)]` for editor) — header/footer heights are coupled to these values.
