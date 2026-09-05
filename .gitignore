@@ -5,3 +5,7 @@ node_modules
 # build output
 public/assets/style.css
 stashbin
+
+# lode session scraps
+lode/tmp/*
+!lode/tmp/.gitkeep
