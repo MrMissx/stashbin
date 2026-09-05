@@ -46,8 +46,3 @@ pre {
 ::placeholder {
   color: #d5e2e6;
 }
-
-li::marker {
-  color: #a2acaf;
-  padding-left: 1rem;
-}

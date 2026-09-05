@@ -20,7 +20,8 @@
 
 ## Paste view (Document)
 
-- `view/document.templ` splits content on `\n` and renders each line as a numbered `<li><code>` — line numbers for free, no JS highlighting.
+- `view/document.templ` splits content on `\n` into `lines`, then renders a two-column flex layout: a right-aligned line-number **gutter** (one `<div>` per line, muted `#a2acaf`, `select-none`) and a `<pre>` with one `<div class="whitespace-pre-wrap">` per line (block-level, so lines stack and wrap independently). The whole container is `overflow-auto`, so numbers and content scroll together as one unit — no JS required.
+- Line numbers come from an explicit index loop (`1..len(lines)`), **not** CSS `list-decimal`. This keeps the gutter aligned to physical lines even when long lines wrap (the old `<ul class="list-decimal">` approach drifted across browsers and was replaced). The `li::marker` rule in `globals.css` is dead and removed.
 - `icons.Tools(slug)` header provides per-paste actions (raw/copy/new links).
 
 ## Tailwind (v4)
