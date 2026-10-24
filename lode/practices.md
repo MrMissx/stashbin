@@ -27,6 +27,8 @@ Patterns and conventions this codebase follows.
 ## Tooling
 
 - Go deps: `go mod download`; JS deps: `bun install` (`make install` does both). Lockfile is `bun.lock`.
+- Go toolchain: the version lives in `go.mod` (`go 1.27.3`) and is mirrored by the `Dockerfile` build tag. `GOTOOLCHAIN=auto` (default) downloads it on demand, so the local Go install can be older. Stdlib fixes only reach the binary through this pin — bump both together.
+- Vuln scan: `GOTOOLCHAIN=go1.27.3 go run golang.org/x/vuln/cmd/govulncheck@latest ./...`. The `GOTOOLCHAIN` prefix is required — bare `go run` resolves the toolchain from `golang.org/x/vuln`'s own `go` directive and then fails to load a 1.27 module. Expected result: 0 reachable vulnerabilities.
 - Dev: `make dev` (tailwind watch + go run) or `make dev-go` (generate + run).
 - DB migrations: `make revision name=...` / `upgrade` / `downgrade` (golang-migrate CLI at `$(GOPATH)/bin/migrate`, reads `DB_URI` from `.env`).
 - Env config via `.env` (autoloaded by godotenv): `DB_URI` (required), `PORT` (default 8080), `DISABLE_METRICS` (optional).

@@ -4,7 +4,9 @@
 
 Multi-stage:
 
-1. **build** (`golang:1.26`): installs curl/unzip/make, then bun via the install script (`/root/.bun/bin` on PATH). `make install` (go mod download + `bun install`), `go install templ`, copies source, `make generate` (templ + tailwind), `make build` → binary `stashbin`.
+1. **build** (`golang:1.27.3`): installs curl/unzip/make, then bun via the install script (`/root/.bun/bin` on PATH). `make install` (go mod download + `bun install`), `go install templ`, copies source, `make generate` (templ + tailwind), `make build` → binary `stashbin`.
+
+The toolchain tag is pinned to an **exact patch**, not a minor float (`golang:1.26`): the stdlib (including the `crypto/x509` certificate denylist) is compiled into the binary, so the patch level is a security-relevant input. `go.mod`'s `go 1.27.3` directive is the single source of truth; the Dockerfile tag mirrors it and both must move together.
 2. **runner** (`debian:bookworm-slim`): copies only the `stashbin` binary, `public/` (static assets), and `database/migrations` (migrations re-apply at boot).
 
 ## docker-compose.yml
